@@ -35,3 +35,13 @@
 
         原生Js：document.getElementById('content').scrollTop = 200;
      */
+
+
+
+     /* String repeat 方法在某些浏览器中会报错，不被支持
+
+        出错现象，在华为手机自带的浏览器中，有一个页面展示不出来，添加调试工具后发现，报错 undefined is not a function
+
+        特此记录，若再出现类似报错，优先考虑某个特殊的方法不被浏览器支持
+
+    */
