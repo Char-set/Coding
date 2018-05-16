@@ -29,4 +29,9 @@
     oneFor();
 
 
+    /* 操作overflow元素的滚动条
 
+        jQuery：$('#content').scrollTop(200);
+
+        原生Js：document.getElementById('content').scrollTop = 200;
+     */
