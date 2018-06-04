@@ -54,3 +54,36 @@
 
         开发时需要注意
      */
+
+
+
+
+     /* 
+        获取两个时间相差的年月日
+    */
+   function getDiffer(str1,str2){
+        if(str1 > str2) return '';
+        let date1 = new Date(str1),date2 = new Date(str2);
+        let y2 = date2.getFullYear(), m2 = date2.getMonth();
+        let y = y2 - date1.getFullYear(), m = m2 - date1.getMonth(),d = date2.getDate() - date1.getDate();
+        let md1 = [31,28,31,30,31,30,31,31,30,31,30,31];
+        let md2 = md1.slice();
+        md2[1] += 1;
+        function isleap (year){
+            return (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0)
+        }
+        while(d < 0){
+            m2--;
+            d += isleap(y2) ? md2[m2] : md1[m2];
+            m--;
+        }
+        while(m < 0){
+            m += 12;
+            y--;
+        }
+        return {
+            year:y,
+            month:m,
+            day:d
+        }
+   }
