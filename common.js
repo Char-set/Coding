@@ -101,3 +101,13 @@
     * canvas 生成图像需要一定的时间，若生成图像之后，立即获取刚刚生成的对象，会获取不到（jc：jCanvaScript插件）
     * 
     */
+
+    /**
+     * Vue 调试手机设备 命令行启动客户端 vue-devtools
+     * 页面头部添加下段代码
+     * <script>
+        window.__VUE_DEVTOOLS_HOST__ = '<your-local-ip>' // default: localhost
+        window.__VUE_DEVTOOLS_PORT__ = '<devtools-port>' // default: 8098
+        </script>
+        <script src="http://<your-local-ip>:8098"></script>
+     */
