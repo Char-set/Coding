@@ -111,3 +111,11 @@
         </script>
         <script src="http://<your-local-ip>:8098"></script>
      */
+
+     /**
+      * 关于 a 标签 写 href=”javascript:void(0);” 火狐 && ie 会跳转新页面的问题
+      * 解决方法 写 onclick=”return false;”
+      * 原因 在于三款浏览器，对三个属性的处理顺序不同
+      *     Chrome顺序：onclick -> href -> target
+      *     IE和Firefox顺序：onclick -> target -> href
+      */
