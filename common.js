@@ -119,3 +119,10 @@
       *     Chrome顺序：onclick -> href -> target
       *     IE和Firefox顺序：onclick -> target -> href
       */
+
+      /**
+       * angular Js
+       * ng-model 在双向绑定变量的时候，若直接绑定在 $scope.a 下，在js通过 $scope.a 取值时，会出现取不到的情况
+       * 解决方法：定义 $scope.data = {a:''}，取值时用 $scope.data.a
+       * 原因：目前不明
+       */
