@@ -126,3 +126,64 @@
        * 解决方法：定义 $scope.data = {a:''}，取值时用 $scope.data.a
        * 原因：目前不明
        */
+
+       /**
+        * @keyframes miaovIn{
+            0%{
+                // transform: translate(-193px,20px);
+                // opacity: 0;
+            }
+            35%{
+                width: 0px;
+                opacity: 1;
+                top: calc(~"100vh - 15px");
+                left: 30px;
+                transform: rotate(-720deg);
+            }
+            55%{
+                width: 25px;
+                opacity: 1;
+                top: calc(~"100vh - 45px");
+                left: 30px;
+                transform: rotate(-720deg);
+            }
+            55%{
+                width: 25px;
+                opacity: 1;
+                top: calc(~"100vh - 45px");
+                left: 30px;
+                transform: rotate(-720deg);
+            }
+            60%{
+                width: 25px;
+                opacity: 1;
+                top: calc(~"100vh - 45px");
+                left: 30px;
+                transform: rotate(-720deg);
+            }
+            65%{
+                width: 25px;
+                opacity: 1;
+                top: calc(~"100vh - 45px");
+                left: 30px;
+                transform: rotate(-720deg) scale(0.8);
+            }
+            100%{
+                width: 0px;
+                opacity: 0;
+                top: calc(~"100vh - 15px");
+                left: 30px;
+                transform: rotate(0deg) scale(0.8);
+            }
+        }
+        .sharkImg{
+            width: 100%;
+            position: fixed;
+            top: 44px;
+            z-index: 10000;
+            &.active{
+                animation: miaovIn 2s;
+                animation-fill-mode: forwards;
+            }
+        }
+        */
