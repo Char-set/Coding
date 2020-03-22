@@ -275,3 +275,35 @@
         }
         return result;
     }
+
+
+    /**
+     * @desc 手写实现call
+     */
+    Function.prototype.call = function(content) {
+        const cxt = content || window;
+        // 将当前调用的方法定义在cxt上，为了能以对象调用的形式绑定this
+        cxt.func = this;
+        // 获取实参
+        const args = Array.from(arguments).slice(1);
+
+        // 以对象调用的形式调用func，此时this指向cxt，也就是传入的需要绑定的this指向
+        const res = arguments.length > 1 ? cxt.func(...args) : cxt.func();
+
+        // 删除改方法，不然会对传入的对象造成污染
+        delete cxt.func;
+
+        return res;
+    }
+
+    // const test = {
+    //     a:1,
+    //     getA:function() {
+    //         console.log(this.a);
+    //     }
+    // }
+    // test.getA();
+    // const b = {
+    //     a:2
+    // }
+    // test.getA.call(b)
