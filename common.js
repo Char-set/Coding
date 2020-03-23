@@ -295,7 +295,20 @@
 
         return res;
     }
+    /**
+     * @desc 手写实现apply方法
+     */
+    Function.prototype.apply = function(content) {
+        const cxt = content || global;
 
+        cxt.func = this;
+
+        const res = arguments[1] ? cxt.func(...arguments[1]) : cxt.func();
+
+        delete cxt.func;
+
+        return res;
+    }
     // const test = {
     //     a:1,
     //     getA:function() {
