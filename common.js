@@ -309,14 +309,32 @@
 
         return res;
     }
-    // const test = {
-    //     a:1,
-    //     getA:function() {
-    //         console.log(this.a);
-    //     }
-    // }
-    // test.getA();
-    // const b = {
-    //     a:2
-    // }
-    // test.getA.call(b)
+    /**
+     * @desc 手写bind方法
+     */
+    Function.prototype.bind = function(content) {
+        const cxt = JSON.parse(JSON.stringify(content)) || global;
+
+        cxt.func = this;
+
+        const args = Array.from(arguments).slice(1);
+
+        return function() {
+            // 合并调用时，传入的参数
+            const allArgs = args.concat(Array.from(arguments));
+
+            return allArgs.length > 0 ? cxt.func(...allArgs) : cxt.func();
+        };
+    }
+    const test = {
+        a:1,
+        getA:function(c) {
+            console.log(this.a,c);
+        }
+    }
+    test.getA();
+    const b = {
+        a:2
+    }
+    let c = test.getA.bind(b,{a:3})
+    c()
