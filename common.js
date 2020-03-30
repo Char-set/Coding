@@ -313,7 +313,7 @@
      * @desc 手写bind方法
      */
     Function.prototype.bind = function(content) {
-        const cxt = JSON.parse(JSON.stringify(content)) || global;
+        const cxt = content || global;
 
         cxt.func = this;
 
@@ -326,15 +326,32 @@
             return allArgs.length > 0 ? cxt.func(...allArgs) : cxt.func();
         };
     }
-    const test = {
-        a:1,
-        getA:function(c) {
-            console.log(this.a,c);
-        }
+    // const test = {
+    //     a:1,
+    //     getA:function(c) {
+    //         console.log(this.a,c);
+    //     }
+    // }
+    // test.getA();
+    // const b = {
+    //     a:2
+    // }
+    // let c = test.getA.bind(b,{a:3})
+    // c()
+
+    /**
+     * @desc sleep 函数，让当前代码块暂停执行，等待指定时间重新唤起
+     */
+    function sleep(ms) {
+        return new Promise((rl) => {
+            setTimeout(rl,ms)
+        })
     }
-    test.getA();
-    const b = {
-        a:2
-    }
-    let c = test.getA.bind(b,{a:3})
-    c()
+
+    // async function a() {
+    //     console.log(1);
+    //     await sleep(3000);
+    //     console.log(2)
+    // }
+
+    // a();
