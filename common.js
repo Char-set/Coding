@@ -355,3 +355,88 @@
     // }
 
     // a();
+
+    /**
+     * @desc 手写实现简单的Promise
+     */
+    // setTimeout(() => {
+    //     console.log('time')
+    // }, 0);
+    function New_Promise(fn) {
+        let reason = undefined, data = undefined, succallbacks = [], failcallbacks = [];
+        let status = 'pending';
+        this.then = function(fuifilled,rejected) {
+            // if(status === 'pending') {
+            //     succallbacks.push(fuifilled);
+            //     failcallbacks.push(rejected);
+            //     return this;
+            // } else if(status === 'fulfilled') {
+            //     fuifilled(data)
+            // } else {
+            //     rejected(reason)
+            // }
+
+            return new New_Promise((resolve,reject) => {
+                function suc(value) {
+                    var ret = typeof fuifilled === 'function' && fuifilled(value) || value;
+                    if(ret && typeof ret['then'] === 'function') {
+                        ret.then((value) => {
+                            resolve(value);
+                        })
+                    } else {
+                        resolve(ret);
+                    }
+                }
+
+                function errback(reason) {
+                    reason = typeof rejected === 'function'  && rejected(reason) || reason;
+                    reject(reason);
+                }
+
+                if (status === 'pending') {
+                    succallbacks.push(suc);
+                    failcallbacks.push(errback);
+                } else if(status === 'fulfilled'){
+                    suc(data);
+                } else {
+                    errback(reason);
+                }
+            })
+        }
+        function resolve(val) {
+            setTimeout(() => {
+                status = 'fulfilled'
+                data = val;
+                succallbacks.forEach((callback) => {
+                    callback(val);
+                })    
+            }, 0);
+        }
+
+        function reject(val) {
+            setTimeout(() => {
+                status = 'rejected'
+                reason = val;
+                failcallbacks.forEach((callback) => {
+                    callback(val);
+                })    
+            }, 0);
+        }
+
+        fn(resolve,reject);
+    }
+
+    // function fn(num) {
+    //     return new New_Promise((rl,rj) => {
+    //         // setTimeout(() => {
+    //             rl(num);
+    //         // }, 0);
+            
+    //     })
+    // }
+
+    // fn(1).then(data => {
+    //     console.log(data);
+    // }).then((data) => {
+    //     console.log(++data)
+    // })
