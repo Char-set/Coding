@@ -362,6 +362,9 @@
     // setTimeout(() => {
     //     console.log('time')
     // }, 0);
+    function isPromise(obj) {
+        return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';  
+    }
     function New_Promise(fn) {
         let reason = undefined, data = undefined, succallbacks = [], failcallbacks = [];
         let status = 'pending';
@@ -403,6 +406,9 @@
                 }
             })
         }
+
+        
+
         function resolve(val) {
             setTimeout(() => {
                 status = 'fulfilled'
@@ -425,7 +431,27 @@
 
         fn(resolve,reject);
     }
+    New_Promise.all = function(promiseArr) {
+        if(!Array.isArray(promiseArr)) {
+            throw new TypeError('You must pass array')
+        }
+        let result = [];
 
+        return new New_Promise((rl,rj) => {
+            promiseArr.forEach((item,i)=> {
+                if(isPromise(item)) {
+                    item.then(data => {
+                        result[i] = data;
+                        if(result.length == promiseArr.length) {
+                            rl(result);
+                        }
+                    },rj)
+                } else {
+                    result[i] = item;
+                }
+            })
+        })
+    }
     // function fn(num) {
     //     return new New_Promise((rl,rj) => {
     //         // setTimeout(() => {
@@ -440,3 +466,25 @@
     // }).then((data) => {
     //     console.log(++data)
     // })
+
+    let pro1 = new New_Promise((rl,rj) => {
+        setTimeout(() => {
+            rl(1)
+        }, 2000);
+    })
+
+    let pro2 = 123;
+
+    let pro3 = new New_Promise((rl,rj) => {
+        rj('error')
+    })
+    New_Promise.all([pro1,pro2,pro3]).then((data) => {
+        console.log(data)
+    },error => {console.error(error)})
+
+    /**
+     * @desc 继承简述
+     */
+    // js中的继承就是获取存在对象已有属性和方法的一种方式.
+
+    // 继承方式：拷贝式继承、原型式继承、构造函数继承、
